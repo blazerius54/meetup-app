@@ -1,14 +1,15 @@
 import { createStore } from 'redux';
 import rootReducer from '../reducers';
-import sessionReducer from '../reducers/session';
-import text from '../data/index'
+import { sessionReducer } from '../reducers/session';
+import meetUps from '../data/index'
 
 const defaultState = {
-    text
+    sessionState: {
+        meetUps
+    }
 }
 
 const store = createStore(rootReducer);
-// const store = createStore(sessionReducer);
 // const store = createStore(sessionReducer, defaultState);
 
 export default store;
