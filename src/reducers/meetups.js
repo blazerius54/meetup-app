@@ -6,6 +6,7 @@ const initialState = meetUps
 export function meetupReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_MEETUP: {
+            console.log(action)
             return [
                 ...state, {place: action.place, description: action.description, id: action.id, author: action.author}
             ];

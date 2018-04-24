@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addMeetup, setUsers } from '../actions';
-import { firebase, db } from '../firebase';
+import { firebase, db, auth } from '../firebase';
 
 class Main extends Component {
   constructor(props) {
@@ -11,15 +11,16 @@ class Main extends Component {
       place: '',
       description: '',
       users: [],
-      author: ''
+      // author: ''
     }
   }
 
   handleAddMeetup(e) {
     e.preventDefault()
-    this.props.addMeetup(this.state.place, this.state.description, this.state.author)
+    console.log(firebase.auth.currentUser)
+    this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName)
     // console.log(this.props.authUser.uid)
-    this.readAuthor()
+    // this.readAuthor()
   }
 
   readAuthor() {
@@ -31,17 +32,21 @@ class Main extends Component {
 
     console.log(this.props.users)
 
-    for(let i in this.props.users) {
-      if(i === this.props.authUser.uid) {
-        this.setState({
-          author: this.props.users[i].username
-        })
-        console.log(this.state.author)
-      }
-    }
+    // for(let i in this.props.users) {
+    //   if(i === this.props.authUser.uid) {
+    //     this.setState({
+    //       author: this.props.users[i].username
+    //     })
+    //     console.log(this.state.author)
+    //   }
+    // }
+    this.setState({
+      author: firebase.auth.currentUser.displayName
+    })
   }
 
   render() {
+    
     return (
       <div className='main-page'>
         {
@@ -60,7 +65,7 @@ class Main extends Component {
                   this.props.meetUps.map((item, index) => {
                     return (
                       <div key={index} className='single-meetup'>
-                        <p>Location: {item.location}</p>
+                        <p>Location: {item.place}</p>
                         <p>Discription: {item.description}</p>
                         <p>{item.author}</p>
                       </div>

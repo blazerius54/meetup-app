@@ -13,14 +13,14 @@ class Navigation extends Component {
       authUser
         ? onSetAuthUser(authUser)
         : onSetAuthUser(null);
-    });
+    })
   }
   
   render() {
     const NavigationAuth = () =>
       <ul className='nav-main'>
         <li><Link className='categ-title' to={process.env.PUBLIC_URL + '/'}> Main </Link></li>
-        <li>{this.props.authUser.email}</li>
+        <li>{this.props.authUser.displayName}</li>
         {/* <li><SignOutButton /></li> */}
         <li>
           <button
@@ -41,7 +41,7 @@ class Navigation extends Component {
     return (
       <div>
           {
-            this.props.authUser 
+            this.props.authUser
             ? <NavigationAuth />    
             : <NavigationNonAuth />
           }
@@ -51,6 +51,7 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state.sessionState.authUser)
   return {
     authUser: state.sessionState.authUser
   }

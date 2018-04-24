@@ -1,7 +1,8 @@
 let state = [
     {
-        location: 'Moscow',
-        description: 'Play balalaika'
+        place: 'Moscow',
+        description: 'Play balalaika',
+        author: 'Vova'
     }
 ]
 export default state;

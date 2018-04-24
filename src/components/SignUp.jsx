@@ -56,6 +56,8 @@ class SignUpForm extends Component {
             this.setState(updateByPropertyName('error', error));
           });
 
+          authUser.updateProfile({'displayName': username});
+
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error));
