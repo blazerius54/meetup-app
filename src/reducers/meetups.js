@@ -12,8 +12,8 @@ export function meetupReducer(state = initialState, action) {
             ];
         }
         case TOGGLE_MEETUP: {
-            if(state[action.index].members.includes(action.user)){
-                return [
+            state[action.index].members.includes(action.user)?
+                 state = [
                     ...state.slice(0, action.index),
                     state[action.index] = {
                         ...state[action.index],
@@ -23,8 +23,8 @@ export function meetupReducer(state = initialState, action) {
                     },
                     ...state.slice(action.index+1),
                 ]
-            } else {
-                return [
+             : 
+                state = [
                     ...state.slice(0, action.index),
                     state[action.index] = {
                         ...state[action.index],
@@ -32,7 +32,7 @@ export function meetupReducer(state = initialState, action) {
                     },
                     ...state.slice(action.index+1),
                 ]
-            }
+            
         }
         default: return state;
     }

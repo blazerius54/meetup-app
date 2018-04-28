@@ -20,7 +20,7 @@ export const setUsers = (users) => {
     return action
 }
 
-export const goOnMeetup = (user, index) => {
+export const toggleMeetup = (user, index) => {
     const action = {
         type: TOGGLE_MEETUP,
         user,

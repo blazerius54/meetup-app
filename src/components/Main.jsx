@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addMeetup, setUsers, goOnMeetup } from '../actions';
+import { addMeetup, setUsers, toggleMeetup } from '../actions';
 import { firebase, db, auth } from '../firebase';
+import Meetup from './Meetup';
 
 class Main extends Component {
   constructor(props) {
@@ -11,14 +12,25 @@ class Main extends Component {
       place: '',
       description: '',
       users: [],
+      isAuthor: null
     }
   }
+
+  // componentDidMount () {
+  //   this.setState({
+  //     isAuthor: 
+  //   })
+  // }
 
   handleAddMeetup(e) {
     e.preventDefault()
     this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName)
   }
 
+  handleToggleMeetup (user, index) {
+    // console.log(user, index)
+    this.props.toggleMeetup(user, index)
+  }
   render() {
     
     return (
@@ -38,20 +50,23 @@ class Main extends Component {
                 {
                   this.props.meetUps.map((item, index) => {
                     return (
-                      <div key={index} className='single-meetup'>
-                        <p>Location: {item.place}</p>
-                        <p>Discription: {item.description}</p>
-                        <p>Author: {item.author}</p>
-                        <p>Members: {item.members}</p>
-                        {console.log(item.members.includes(firebase.auth.currentUser.displayName))}
-                        {
-                          item.members.includes(firebase.auth.currentUser.displayName)
-                          // ?<div>In list</div>
-                          ?<button onClick={()=>this.props.goOnMeetup(firebase.auth.currentUser.displayName, index)}>Decline</button>
-                          :<button onClick={()=>this.props.goOnMeetup(firebase.auth.currentUser.displayName, index)}>Go</button>
-                          
-                        }
-                      </div>
+                      // <div key={index} className='single-meetup'>
+                      //   <p>Location: {item.place}</p>
+                      //   <p>Discription: {item.description}</p>
+                      //   <p>Author: {item.author}</p>
+                      //   {/* <p>Members: {item.members}</p> */}
+                      //   {item.members.map((member, index)=>{
+                      //     return <span key={index}>{member}</span>
+                      //   })}
+                      //   {
+                      //     item.members.includes(firebase.auth.currentUser.displayName)
+                      //     ?<button onClick={()=>this.props.toggleMeetup(firebase.auth.currentUser.displayName, index)}>Decline</button>
+                      //     :<button onClick={()=>this.props.toggleMeetup(firebase.auth.currentUser.displayName, index)}>Go</button>
+                      //   }
+                      // </div>
+                      <Meetup key={index} index={index} item={item} isAuthor={item.members.includes(firebase.auth.currentUser.displayName)}
+                      handleToggleMeetup = {this.handleToggleMeetup.bind(this)}
+                      />
                     )
                   })
                 }
@@ -76,7 +91,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addMeetup, setUsers, goOnMeetup }, dispatch)
+  return bindActionCreators({ addMeetup, setUsers, toggleMeetup }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
