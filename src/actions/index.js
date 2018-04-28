@@ -1,4 +1,4 @@
-import { ADD_MEETUP, USERS_SET } from '../consts';
+import { ADD_MEETUP, USERS_SET, GO_ON_MEETUP } from '../consts';
 
 export const addMeetup = (place, description, author) => {
     const action = {
@@ -17,5 +17,15 @@ export const setUsers = (users) => {
         type: USERS_SET,
         users
     }
+    return action
+}
+
+export const goOnMeetup = (user, index) => {
+    const action = {
+        type: GO_ON_MEETUP,
+        user,
+        index
+    }
+    console.log(action)
     return action
 }
