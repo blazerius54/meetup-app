@@ -11,38 +11,12 @@ class Main extends Component {
       place: '',
       description: '',
       users: [],
-      // author: ''
     }
   }
 
   handleAddMeetup(e) {
     e.preventDefault()
-    console.log(firebase.auth.currentUser)
     this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName)
-    // console.log(this.props.authUser.uid)
-    // this.readAuthor()
-  }
-
-  readAuthor() {
-    const { setUsers } = this.props;
-
-    db.onceGetUsers().then(snapshot =>
-      setUsers(snapshot.val())
-    );
-
-    console.log(this.props.users)
-
-    // for(let i in this.props.users) {
-    //   if(i === this.props.authUser.uid) {
-    //     this.setState({
-    //       author: this.props.users[i].username
-    //     })
-    //     console.log(this.state.author)
-    //   }
-    // }
-    this.setState({
-      author: firebase.auth.currentUser.displayName
-    })
   }
 
   render() {
@@ -86,7 +60,6 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     authUser: state.sessionState.authUser,
     meetUps: state.meetUps,

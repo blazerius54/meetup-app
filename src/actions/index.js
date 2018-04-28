@@ -1,4 +1,4 @@
-import { ADD_MEETUP } from '../consts';
+import { ADD_MEETUP, USERS_SET } from '../consts';
 
 export const addMeetup = (place, description, author) => {
     const action = {
@@ -14,7 +14,8 @@ export const addMeetup = (place, description, author) => {
 
 export const setUsers = (users) => {
     const action = {
-        type: 'USERS_SET', users
+        type: USERS_SET,
+        users
     }
     return action
 }

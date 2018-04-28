@@ -1,4 +1,4 @@
-import { AUTH_USER_SET } from '../consts'
+import { AUTH_USER_SET, USERS_SET } from '../consts'
 const INITIAL_STATE = {
   authUser: null,
 };
@@ -19,7 +19,7 @@ export function sessionReducer(state = INITIAL_STATE, action) {
     case AUTH_USER_SET: {
       return applySetAuthUser(state, action);
     }
-    case 'USERS_SET' : {
+    case USERS_SET : {
       return applySetUsers(state, action);
     }
     default: return state;

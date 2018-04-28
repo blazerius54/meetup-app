@@ -51,7 +51,6 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.sessionState.authUser)
   return {
     authUser: state.sessionState.authUser
   }
