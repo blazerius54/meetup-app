@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { addMeetup, setUsers, toggleMeetup } from '../actions';
-import { firebase, db, auth } from '../firebase';
+import { firebase } from '../firebase';
 
-class Meetup extends Component {
-
-    render() {
-        const { item, index, isAuthor } = this.props;
-        console.log(isAuthor)
-        return (
-            <div className='single-meetup'>
-                <p>Location: {item.place}</p>
-                <p>Discription: {item.description}</p>
-                <p>Author: {item.author}</p>
-                {item.members.map((member, index) => {
+const Meetup = (props) => {
+    const { item, index, isGoing, handleToggleMeetup } = props;
+    return (
+        <div className='single-meetup'>
+            <p>Location: {this.props}</p>
+            <p>Discription: {item.description}</p>
+            <p>Author: {item.author}</p>
+            {
+                item.members.map((member, index) => {
                     return <span key={index}>{member}</span>
-                })}
-                {
-                    isAuthor
-                    ? <button onClick={() => this.props.handleToggleMeetup(firebase.auth.currentUser.displayName, index)}>Decline</button>
-                    : <button onClick={() => this.props.handleToggleMeetup(firebase.auth.currentUser.displayName, index)}>Go</button>
-                }
-            </div>
-
-        )
-    }
+                })
+            }
+            {
+                isGoing
+                ? <button onClick={() => handleToggleMeetup(index)}>Decline</button>
+                : <button onClick={() => handleToggleMeetup(index)}>Go</button>
+            }
+        </div>
+    )
 }
 
-
-export default Meetup;
+export default Meetup
