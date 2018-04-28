@@ -1,4 +1,4 @@
-import { ADD_MEETUP, USERS_SET, GO_ON_MEETUP } from '../consts';
+import { ADD_MEETUP, USERS_SET, TOGGLE_MEETUP } from '../consts';
 
 export const addMeetup = (place, description, author) => {
     const action = {
@@ -22,7 +22,7 @@ export const setUsers = (users) => {
 
 export const goOnMeetup = (user, index) => {
     const action = {
-        type: GO_ON_MEETUP,
+        type: TOGGLE_MEETUP,
         user,
         index
     }

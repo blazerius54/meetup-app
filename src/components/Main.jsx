@@ -46,7 +46,8 @@ class Main extends Component {
                         {console.log(item.members.includes(firebase.auth.currentUser.displayName))}
                         {
                           item.members.includes(firebase.auth.currentUser.displayName)
-                          ?<div>In list</div>
+                          // ?<div>In list</div>
+                          ?<button onClick={()=>this.props.goOnMeetup(firebase.auth.currentUser.displayName, index)}>Decline</button>
                           :<button onClick={()=>this.props.goOnMeetup(firebase.auth.currentUser.displayName, index)}>Go</button>
                           
                         }
