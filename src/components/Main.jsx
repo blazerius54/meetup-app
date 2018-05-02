@@ -37,8 +37,10 @@ class Main extends Component {
   handleToggleMeetup (index) {
     this.props.toggleMeetup(firebase.auth.currentUser.displayName, index)
   }
+
   render() {
-    
+    const { authUser, deleteMeetup} = this.props;
+    const { error } = this.state;
     return (
       <div className='main-page'>
         {
@@ -47,7 +49,7 @@ class Main extends Component {
             <div>
               <form onSubmit={(e) => this.handleAddMeetup(e)}>
                 <input placeholder='location'
-                className={this.state.error?'danger':null}
+                className={error?'danger':null}
                 ref={ref => {
                   this.inputPlace = ref;
                 }}
@@ -62,17 +64,18 @@ class Main extends Component {
                   Create Meetup
                 </button>
                 {
-                  this.state.error && <p>{this.state.error}</p> 
+                  error && <p>{error}</p> 
                 }
               </form>
               <div className='meetups-container'>
                 {
                   this.props.meetUps.map((item, index) => {
                     return (
-                      <Meetup key={index} index={index} item={item} isGoing={item.members.includes(firebase.auth.currentUser.displayName)}
+                      <Meetup key={index} index={index} item={item} 
+                      isGoing={item.members.includes(authUser.displayName)}
                       handleToggleMeetup={this.handleToggleMeetup.bind(this)}
-                      handleDeleteMeetup={this.props.deleteMeetup.bind(this)}
-                      isAuthor={item.author === this.props.authUser.displayName}
+                      handleDeleteMeetup={deleteMeetup.bind(this)}
+                      isAuthor={item.author === authUser.displayName}
                       />
                     )
                   })
