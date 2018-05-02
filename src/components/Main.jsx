@@ -11,20 +11,27 @@ class Main extends Component {
     this.state = {
       place: '',
       description: '',
-      users: [],
-      isAuthor: null
+      error: ''
     }
   }
 
-  // componentDidMount () {
-  //   this.setState({
-  //     isAuthor: 
-  //   })
-  // }
 
   handleAddMeetup(e) {
     e.preventDefault()
-    this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName)
+    if(this.state.place === '' || this.state.description === '' || firebase.auth.currentUser.displayName === '') {
+      this.setState({
+        error: 'Please, enter correct info'
+      });
+    } else {
+      this.setState({
+        place: '',
+        description: '',
+        error: '',
+      });
+      this.inputPlace.value = '';
+      this.inputDescription.value = '';
+      this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName);
+    }
   }
 
   handleToggleMeetup (index) {
@@ -39,11 +46,24 @@ class Main extends Component {
 
             <div>
               <form onSubmit={(e) => this.handleAddMeetup(e)}>
-                <input placeholder='location' onChange={e => this.setState({ place: e.target.value })} type="text" />
-                <input placeholder='description' onChange={e => this.setState({ description: e.target.value })} type="text" />
+                <input placeholder='location'
+                className={this.state.error?'danger':null}
+                ref={ref => {
+                  this.inputPlace = ref;
+                }}
+                onChange={e => this.setState({ place: e.target.value })} type="text" />
+                <input placeholder='description'
+                className={this.state.error?'danger':null}
+                ref={ref => {
+                  this.inputDescription = ref;
+                }}
+                onChange={e => this.setState({ description: e.target.value })} type="text" />
                 <button type="submit">
                   Create Meetup
                 </button>
+                {
+                  this.state.error && <p>{this.state.error}</p> 
+                }
               </form>
               <div className='meetups-container'>
                 {
@@ -60,7 +80,6 @@ class Main extends Component {
             :
             null
         }
-
 
       </div>
     )
