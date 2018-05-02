@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addMeetup, setUsers, toggleMeetup } from '../actions';
+import { addMeetup, setUsers, toggleMeetup, deleteMeetup } from '../actions';
 import { firebase, db, auth } from '../firebase';
 import Meetup from './Meetup';
 
@@ -70,7 +70,9 @@ class Main extends Component {
                   this.props.meetUps.map((item, index) => {
                     return (
                       <Meetup key={index} index={index} item={item} isGoing={item.members.includes(firebase.auth.currentUser.displayName)}
-                      handleToggleMeetup = {this.handleToggleMeetup.bind(this)}
+                      handleToggleMeetup={this.handleToggleMeetup.bind(this)}
+                      handleDeleteMeetup={this.props.deleteMeetup.bind(this)}
+                      isAuthor={item.author === this.props.authUser.displayName}
                       />
                     )
                   })
@@ -95,7 +97,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addMeetup, setUsers, toggleMeetup }, dispatch)
+  return bindActionCreators({ addMeetup, setUsers, toggleMeetup, deleteMeetup }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

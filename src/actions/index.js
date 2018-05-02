@@ -1,4 +1,4 @@
-import { ADD_MEETUP, USERS_SET, TOGGLE_MEETUP } from '../consts';
+import { ADD_MEETUP, USERS_SET, TOGGLE_MEETUP, DELETE_MEETUP } from '../consts';
 
 export const addMeetup = (place, description, author) => {
     const action = {
@@ -24,6 +24,15 @@ export const toggleMeetup = (user, index) => {
     const action = {
         type: TOGGLE_MEETUP,
         user,
+        index
+    }
+    console.log(action)
+    return action
+}
+
+export const deleteMeetup = (index) => {
+    const action = {
+        type: DELETE_MEETUP,
         index
     }
     console.log(action)

@@ -1,4 +1,4 @@
-import { ADD_MEETUP, TOGGLE_MEETUP } from '../consts'
+import { ADD_MEETUP, TOGGLE_MEETUP, DELETE_MEETUP } from '../consts'
 import meetUps from '../data'
 
 const initialState = meetUps
@@ -32,7 +32,12 @@ export function meetupReducer(state = initialState, action) {
                     },
                     ...state.slice(action.index+1),
                 ]
-            
+        }
+        case DELETE_MEETUP: {
+            return [
+                ...state.slice(0, action.index),
+                ...state.slice(action.index+1)
+            ]
         }
         default: return state;
     }
