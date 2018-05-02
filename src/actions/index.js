@@ -26,7 +26,6 @@ export const toggleMeetup = (user, index) => {
         user,
         index
     }
-    console.log(action)
     return action
 }
 
@@ -35,6 +34,5 @@ export const deleteMeetup = (index) => {
         type: DELETE_MEETUP,
         index
     }
-    console.log(action)
     return action
 }

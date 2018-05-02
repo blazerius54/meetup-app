@@ -11,6 +11,12 @@ export function meetupReducer(state = initialState, action) {
                 { place: action.place, description: action.description, id: action.id, author: action.author, members: [action.author] }
             ];
         }
+        case DELETE_MEETUP: {
+            return [
+                ...state.slice(0, action.index),
+                ...state.slice(action.index+1)
+            ]
+        }
         case TOGGLE_MEETUP: {
             state[action.index].members.includes(action.user)?
                  state = [
@@ -32,12 +38,6 @@ export function meetupReducer(state = initialState, action) {
                     },
                     ...state.slice(action.index+1),
                 ]
-        }
-        case DELETE_MEETUP: {
-            return [
-                ...state.slice(0, action.index),
-                ...state.slice(action.index+1)
-            ]
         }
         default: return state;
     }
