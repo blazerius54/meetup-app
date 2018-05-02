@@ -4,6 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 import Navigation from './components/Navigation';
 import Main from './components/Main';
+import SingleMeetup from './components/Single-meetup';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import './App.css';
@@ -22,6 +23,7 @@ class App extends Component {
             <div className="App">
               <Navigation />
               <Route exact path={process.env.PUBLIC_URL + '/'} component={Main} />
+              <Route path={process.env.PUBLIC_URL + '/place-:name'} component={SingleMeetup} />
               <Route exact path={process.env.PUBLIC_URL + '/SignIn'} component={SignIn} />
               <Route exact path={process.env.PUBLIC_URL + '/SignUp'} component={SignUp} />
             </div>

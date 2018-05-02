@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { firebase } from '../firebase';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Meetup = (props) => {
     const { item, index, isGoing, handleToggleMeetup, handleDeleteMeetup, isAuthor } = props;
-    console.log(isAuthor)
     return (
         <div className='single-meetup'>
+        <Link to={process.env.PUBLIC_URL + '/place-'+index}>
             <p>Location: {item.place}</p>
+        </Link>
             <p>Discription: {item.description}</p>
             <p>Author: {item.author}</p>
             {
