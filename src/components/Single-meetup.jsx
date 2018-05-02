@@ -7,7 +7,8 @@ import Meetup from './Meetup';
 class SingleMeetup extends Component {
 
     handleToggleMeetup(index) {
-        this.props.toggleMeetup(this.props.authUser.displayName, index)
+        
+        this.props.toggleMeetup(this.props.authUser.displayName, index);
     }
 
     render() {
