@@ -8,7 +8,7 @@ export function meetupReducer(state = initialState, action) {
         case ADD_MEETUP: {
             return [
                 ...state, 
-                { place: action.place, description: action.description, id: action.id, author: action.author, members: [action.author] }
+                { place: action.place, description: action.description, id: action.id, author: action.author, members: [action.author], date: action.date, img: action.img }
             ];
         }
         case DELETE_MEETUP: {

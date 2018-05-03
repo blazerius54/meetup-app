@@ -14,17 +14,17 @@ class SingleMeetup extends Component {
     render() {
         const index = this.props.match.params.name;
         const meetup = this.props.meetUps[index];
-        const { authUser, deleteMeetup } = this.props;
+        const { authUser, deleteMeetup, comments } = this.props;
         
         return (
-            <div>
-                {meetup.place}
+            <div className='meetups-container-column'>
                 <Meetup key={index} index={index} item={meetup}
                 handleToggleMeetup={this.handleToggleMeetup.bind(this)}
                 isGoing={meetup.members.includes(authUser.displayName)}
                 handleDeleteMeetup={deleteMeetup.bind(this)}
                 isAuthor={meetup.author === authUser.displayName}
                 />
+                <p>{comments[index].author}: {comments[index].comment}</p>
             </div>
         )
     }
@@ -35,6 +35,7 @@ function mapStateToProps(state) {
         authUser: state.sessionState.authUser,
         meetUps: state.meetUps,
         // users: state.sessionState.users
+        comments: state.comments
     }
 };
 

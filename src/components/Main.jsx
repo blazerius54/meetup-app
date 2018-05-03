@@ -11,14 +11,15 @@ class Main extends Component {
     this.state = {
       place: '',
       description: '',
-      error: ''
+      error: '',
+      date: null
     }
   }
 
 
   handleAddMeetup(e) {
     e.preventDefault()
-    if(this.state.place === '' || this.state.description === '' || firebase.auth.currentUser.displayName === '') {
+    if(this.state.place === '' || this.state.description === '' || this.dateInput.value === '') {
       this.setState({
         error: 'Please, enter correct info'
       });
@@ -30,7 +31,7 @@ class Main extends Component {
       });
       this.inputPlace.value = '';
       this.inputDescription.value = '';
-      this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName);
+      this.props.addMeetup(this.state.place, this.state.description, firebase.auth.currentUser.displayName, this.dateInput.value, this.inputSrc.value);
     }
   }
 
@@ -42,24 +43,42 @@ class Main extends Component {
     const { authUser, deleteMeetup} = this.props;
     const { error } = this.state;
     return (
-      <div className='main-page'>
+      <div>
         {
           this.props.authUser ?
 
-            <div>
+            <div className='main-page'>
               <form onSubmit={(e) => this.handleAddMeetup(e)}>
                 <input placeholder='location'
                 className={error?'danger':null}
                 ref={ref => {
                   this.inputPlace = ref;
                 }}
-                onChange={e => this.setState({ place: e.target.value })} type="text" />
+                onChange={e => this.setState({ place: e.target.value })} type="text" 
+                />
                 <input placeholder='description'
                 className={this.state.error?'danger':null}
                 ref={ref => {
                   this.inputDescription = ref;
                 }}
-                onChange={e => this.setState({ description: e.target.value })} type="text" />
+                onChange={e => this.setState({ description: e.target.value })} type="text" 
+                />
+                <input type="text"
+                placeholder='Enter img URL'
+                className={error?'danger':null}
+                ref={ref => {
+                    this.inputSrc = ref;
+                }}
+                // onChange={(e)=>{this.setState({error: ''}); if(regex.test(e.target.value)){e.target.className='nice'} }}
+                />
+                <input 
+                type='datetime-local' 
+                placeholder="date"
+                id='datePicker'
+                className={this.state.error?'danger':null}                
+                // defaultValue={dafaultDate}
+                ref={(ref=> {this.dateInput = ref})}
+                />
                 <button type="submit">
                   Create Meetup
                 </button>

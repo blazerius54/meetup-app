@@ -1,11 +1,13 @@
 import { ADD_MEETUP, USERS_SET, TOGGLE_MEETUP, DELETE_MEETUP } from '../consts';
 
-export const addMeetup = (place, description, author) => {
+export const addMeetup = (place, description, author, date, img) => {
     const action = {
         type: ADD_MEETUP,
         place,
         description,
         author,
+        date,
+        img,
         id: Math.random()
     }
     console.log(action)
