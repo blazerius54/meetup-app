@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addMeetup, setUsers, toggleMeetup, deleteMeetup } from '../actions';
+import { addMeetup, setUsers, toggleMeetup, deleteMeetup, addComment } from '../actions';
 import Meetup from './Meetup';
 
 class SingleMeetup extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            comment: ''
+        }
+    }
 
-    handleToggleMeetup(index) {
-        
+    handleToggleMeetup(index) {    
         this.props.toggleMeetup(this.props.authUser.displayName, index);
+    }
+
+    handleAddComment(e, index) {
+        e.preventDefault();
+        this.props.addComment(this.props.authUser.displayName, this.state.comment, index)
     }
 
     render() {
@@ -24,7 +34,20 @@ class SingleMeetup extends Component {
                 handleDeleteMeetup={deleteMeetup.bind(this)}
                 isAuthor={meetup.author === authUser.displayName}
                 />
-                <p>{comments[index].author}: {comments[index].comment}</p>
+                {
+                    comments[index].map((item, index2)=>{
+                        return <p key={index2}>{item.author}: {item.comment}</p>
+                    })
+                }
+                <form onSubmit={(e) => this.handleAddComment(e, index)}>
+                    <input type="text"
+                    placeholder='Add your comment'
+                    onChange={(e)=>{this.setState({comment: e.target.value})}}
+                    />
+                    <button type='submit'>
+                        Add Comment
+                    </button>
+                </form>
             </div>
         )
     }
@@ -40,7 +63,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addMeetup, setUsers, toggleMeetup, deleteMeetup }, dispatch)
+    return bindActionCreators({ addMeetup, setUsers, toggleMeetup, deleteMeetup, addComment }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMeetup);
