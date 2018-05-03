@@ -114,7 +114,8 @@ function mapStateToProps(state) {
   return {
     authUser: state.sessionState.authUser,
     meetUps: state.meetUps,
-    users: state.sessionState.users
+    users: state.sessionState.users,
+    comments: state.comments
   }
 };
 

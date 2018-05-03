@@ -46,6 +46,5 @@ export const addComment = (author, comment, index) => {
         comment,
         index
     }
-    console.log(action)
     return action
 }

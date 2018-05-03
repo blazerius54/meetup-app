@@ -15,12 +15,13 @@ export function commentsReducer (state = initialState, action) {
             ]
         }
         case ADD_COMMENT: {
+            // console.log(state[+action.index+1])
             return [
                 ...state.slice(0, action.index),
                 state[action.index] = [
-                    ...state[action.index], { author: action.author, comment: action.comment}
+                    ...state[action.index], { author: action.author, comment: action.comment }
                 ],
-                ...state.slice(action.index+1)
+                ...state.slice(+action.index+1),
             ]
         }
         default: return state;

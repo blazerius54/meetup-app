@@ -8,7 +8,7 @@ class SingleMeetup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            comment: ''
+            comment: '',
         }
     }
 
@@ -25,7 +25,7 @@ class SingleMeetup extends Component {
         const index = this.props.match.params.name;
         const meetup = this.props.meetUps[index];
         const { authUser, deleteMeetup, comments } = this.props;
-        
+
         return (
             <div className='meetups-container-column'>
                 <Meetup key={index} index={index} item={meetup}
@@ -35,8 +35,8 @@ class SingleMeetup extends Component {
                 isAuthor={meetup.author === authUser.displayName}
                 />
                 {
-                    comments[index].map((item, index2)=>{
-                        return <p key={index2}>{item.author}: {item.comment}</p>
+                    comments[index].map((item, index)=>{
+                        return <p key={index}>{item.author}: {item.comment}</p>
                     })
                 }
                 <form onSubmit={(e) => this.handleAddComment(e, index)}>
